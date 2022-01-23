@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+
+    <record id="product_template_form_view_inherit" model="ir.ui.view">
+        <field name="name">product.template.form.inherit</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//div[@name='options']//span[last()]" position="after">
+                <span name="is_combo_product" class="d-inline-block" groups="product_combo_package.group_combo_package_user">
+                    <field name="is_combo_package" />
+                    <label for="is_combo_package" />
+                </span>
+            </xpath>
+            <xpath expr="//page[@name='sales']" position="before">
+                <page name="combo_items" string="Combo Items" groups="product_combo_package.group_combo_package_user" attrs="{'invisible': [('is_combo_package', '!=', True)]}">
+                    <field name="combo_package_ids" nolabel="1">
+                        <tree editable="bottom">
+                            <field name="item_id" required="1" />
+                            <field name="quantity" required="1" />
+                            <field name="uom_id" required="1" />
+                            <field name="unit_cost" invisible="1" />
+                            <field name="total_cost" invisible="1" />
+                            <field name="product_id" invisible="1" />
+                        </tree>
+                        <form>
+                            <sheet>
+                                <group>
+                                    <group>
+                                        <field name="item_id" />
+                                        <field name="quantity" />
+                                        <field name="uom_id" />
+                                        <field name="unit_cost" invisible="1" />
+                                        <field name="total_cost" invisible="1" />
+                                        <field name="product_id" invisible="1" />
+                                    </group>
+                                </group>
+                            </sheet>
+                        </form>
+                    </field>
+                </page>
+            </xpath>
+        </field>
+    </record>
+    <record id="product_template_only_form_view_inherit" model="ir.ui.view">
+        <field name="name">product.template.only.form.inherit</field>
+        <field name="model">product.template</field>
+        <field name="inherit_id" ref="product.product_template_only_form_view" />
+        <field name="arch" type="xml">
+            <xpath expr="//page[@name='combo_items']" position="attributes">
+                <attribute name="attrs">{'invisible': ['|', ('is_combo_package', '!=', True), ('product_variant_count', '&gt;', 1)]}</attribute>
+            </xpath>
+            <xpath expr="//span[@name='is_combo_product']" position="attributes">
+                <attribute name="attrs">{'invisible': [('product_variant_count', '&gt;', 1)]}</attribute>
+            </xpath>
+        </field>
+    </record>
+</odoo>

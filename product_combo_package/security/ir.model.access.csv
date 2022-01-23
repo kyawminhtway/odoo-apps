@@ -1,0 +1,6 @@
+id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_product_combo_package_user,User access for Combo Package,model_product_combo_package,group_combo_package_user,1,1,1,1
+access_product_combo_package_item_user,User access for Combo Package Item,model_product_combo_package_item,group_combo_package_user,1,1,1,1
+access_product_combo_extra_cost_user,User access for Combo Package Extra Cost,model_product_combo_extra_cost,group_combo_package_user,1,1,1,1
+access_stock_insufficient_warning_user,User access for Insufficient Warning,model_stock_insufficient_warning,group_combo_package_user,1,1,1,1
+access_stock_insufficient_warning_line_user,User access for Insufficient Warning Line,model_stock_insufficient_warning_line,group_combo_package_user,1,1,1,1
