@@ -11,7 +11,7 @@ Promotion Programs
 This module helps you to manage your promotion programs for point of sale. It is also super easy to use. Dynamic configuration is also available. Reporting & access rights features 
 are also there.
 """,
-    'category': 'Point of Sale/Promotion Programs',
+    'category': 'Point of Sale',
     'images' : [],
     'depends' : ['point_of_sale'],
     'data': [
