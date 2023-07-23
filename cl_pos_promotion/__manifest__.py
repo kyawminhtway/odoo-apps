@@ -31,7 +31,10 @@ are also there.
     },
     'price': '143',
     'currency': 'USD',
-    'images': ['static/description/banner.png'],
+    'images': [
+        'static/description/banner.png', 
+        'static/images/check-list.png'
+    ],
     'installable': True,
     'application': True,
     'license': 'OPL-1',
