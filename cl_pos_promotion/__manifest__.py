@@ -2,6 +2,7 @@
 {
     'name' : 'POS Promotion',
     'version' : '1.0',
+    'author': 'Kyaw Min Htwe',
     'summary': 'Dynamic Promotion Programs for Point of Sale',
     'sequence': 50,
     'description': """
@@ -28,6 +29,8 @@ are also there.
             'cl_pos_promotion/static/src/xml/**/*',
         ],
     },
+    'price': '143',
+    'currency': 'USD',
     'images': ['static/description/banner.png'],
     'installable': True,
     'application': True,
