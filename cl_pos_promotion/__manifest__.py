@@ -29,7 +29,7 @@ are also there.
             'cl_pos_promotion/static/src/xml/**/*',
         ],
     },
-    'price': '143',
+    'price': '72',
     'currency': 'USD',
     'images': [
         'static/description/banner.png', 
