@@ -2,6 +2,7 @@
 {
     'name' : 'POS Promotion',
     'version' : '1.0',
+    'author': 'Kyaw Min Htwe',
     'summary': 'Dynamic Promotion Programs for Point of Sale',
     'sequence': 50,
     'description': """
@@ -10,7 +11,7 @@ Promotion Programs
 This module helps you to manage your promotion programs for point of sale. It is also super easy to use. Dynamic configuration is also available. Reporting & access rights features 
 are also there.
 """,
-    'category': 'Point of Sale/Promotion Programs',
+    'category': 'Point of Sale',
     'images' : [],
     'depends' : ['point_of_sale'],
     'data': [
@@ -28,7 +29,12 @@ are also there.
             'cl_pos_promotion/static/src/xml/**/*',
         ],
     },
-    'images': ['static/description/banner.png'],
+    'price': '72',
+    'currency': 'USD',
+    'images': [
+        'static/description/banner.png', 
+        'static/images/check-list.png'
+    ],
     'installable': True,
     'application': True,
     'license': 'OPL-1',
