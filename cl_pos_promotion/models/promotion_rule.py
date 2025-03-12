@@ -14,7 +14,7 @@ class PromotionRule(models.Model):
                              ('buy_more_than_x_qty', 'Buy More Than X Quantity'),
                              ('buy_more_than_x_qty_from_categories', 'Buy More Than X Quantity From Specific Categories'),
                              ('buy_more_than_x_qty_from_products', 'Buy More Than X Quantity From Specific Products'),
-                             ('buy_combo_products', 'Buy Combo Products')], 'Type', required=True, tracking=2)
+                             ('buy_combo_products', 'Buy Pairing Products')], 'Type', required=True, tracking=2)
     price_rule = fields.Selection([('tax_exclusive', 'Price without Tax'),
                                    ('tax_inclusive', 'Price with Tax'),
                                    ('discount_inclusive', 'Price with Tax & Discount')], 'Price Calculation', tracking=3)
@@ -25,6 +25,24 @@ class PromotionRule(models.Model):
     combo_line_ids = fields.One2many('promotion.combo.line', 'rule_id', 'Combo Products')
     note = fields.Text('Note')
     program_ids = fields.One2many('promotion.program', 'rule_id', 'Promotion Programs')
+
+    @api.model
+    def _load_pos_data_domain(self, data):
+        return [('program_ids', 'in', data['promotion.program']['ids'])]
+
+    @api.model
+    def _load_pos_data_fields(self):
+        return ['name', 'type', 'price_rule', 'min_amt', 'min_qty', 'product_ids', 'category_ids', 'combo_line_ids', 'note', 'program_ids']
+
+    def _load_pos_data(self, data):
+        domain = self._load_pos_data_domain(data)
+        fields_to_read = self._load_pos_data_fields()
+        records = self.search_read(domain, fields_to_read, load=False)
+        return {
+            'data': records,
+            'fields': fields_to_read,
+            'ids': [record['id'] for record in records]
+        }
 
 
 class PromotionComboLine(models.Model):
@@ -38,4 +56,22 @@ class PromotionComboLine(models.Model):
     category_ids = fields.Many2many('pos.category', 'promotion_combo_line_category_rel', 'line_id', 'category_id', 'Categories')
     qty = fields.Float('Qty', default=1, required=True)
     rule_id = fields.Many2one('promotion.rule', 'Rule', ondelete='cascade')
+
+    @api.model
+    def _load_pos_data_domain(self, data):
+        return [('rule_id', 'in', data['promotion.rule']['ids'])]
+
+    @api.model
+    def _load_pos_data_fields(self):
+        return ['based_on', 'product_ids', 'category_ids', 'qty', 'rule_id']
+
+    def _load_pos_data(self, data):
+        domain = self._load_pos_data_domain(data)
+        fields_to_read = self._load_pos_data_fields()
+        records = self.search_read(domain, fields_to_read, load=False)
+        return {
+            'data': records,
+            'fields': fields_to_read,
+            'ids': [record['id'] for record in records]
+        }
 

@@ -1,0 +1,47 @@
+.select-program-popup thead tr{
+    color: white;
+    background-color: #714b67;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.select-program-popup thead tr th:nth-child(1){
+    cursor: pointer;
+}
+
+.select-program-popup thead tr th:nth-child(1):hover{
+    background-color: #573e50;
+}
+
+.select-program-popup tr th:nth-child(1), .select-program-popup tr td:nth-child(1){
+    text-align: center;
+}
+
+.select-program-popup tbody tr{
+    cursor: pointer;
+}
+
+.select-program-popup tbody tr:hover{
+    background-color: #dee2e6;
+}
+
+.select-program-popup tbody td{
+    font-size: 16px;
+}
+
+.select-program-popup footer button {
+    border: 1px solid #C8C8C8;
+    color: #017e84;
+    padding: 8px 24px;
+    margin-right: 12px
+}
+
+.select-program-popup footer button:hover, .select-program-popup footer button:active, .select-program-popup footer button:focus {
+    background-color: #dee2e6;
+    border: 1px solid #C8C8C8;
+    color: #017e84;
+}
+
+.zero-padding{
+    padding: 0 !important;
+}

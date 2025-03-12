@@ -23,13 +23,12 @@ are also there.
         'views/menuitems.xml',
     ],
     'assets': {
-        'point_of_sale.assets': [
-            'cl_pos_promotion/static/src/css/**/*',
-            'cl_pos_promotion/static/src/js/**/*',
-            'cl_pos_promotion/static/src/xml/**/*',
+        'point_of_sale._assets_pos': [
+            'cl_pos_promotion/static/src/app/**/*',
+            'cl_pos_promotion/static/src/overrides/**/*',
         ],
     },
-    'price': '72',
+    'price': '75',
     'currency': 'USD',
     'images': [
         'static/description/banner.png', 

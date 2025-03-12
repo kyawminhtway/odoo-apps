@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+    <t t-name="pos_loyalty.ControlButtons" t-inherit="point_of_sale.ControlButtons" t-inherit-mode="extension">
+        <xpath expr="//OrderlineNoteButton/.." position="after">
+            <t t-if="pos.get_order()?.uiState?.promotionApplicable">
+                <button t-attf-class="btn btn-light btn-lg lh-lg text-truncate w-auto flex-shrink-0 btn-apply-promotion" t-on-click="onClickSelectPromotionProgram">
+                    <span>Apply Promotions</span>
+                </button>
+            </t>
+            <t t-else="">
+                <button t-attf-class="btn btn-light btn-lg lh-lg text-truncate w-auto flex-shrink-0">
+                    <span>Apply Promotions</span>
+                </button>
+            </t>
+        </xpath>
+    </t>
+</templates>

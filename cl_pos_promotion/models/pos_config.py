@@ -1,13 +1,14 @@
-from odoo import models
+from odoo import api, models, fields
 
 
 class PosConfig(models.Model):
 
     _inherit = 'pos.config'
 
-    def get_limited_products_loading(self, fields):
-        products = super().get_limited_products_loading(fields)
-        discount_products = self.env['promotion.item'].get_discount_products()
-        discount_products = self.env['product.product'].search_read([('id', 'in', discount_products.ids)], fields=fields)
-        return products + discount_products
+    @api.model
+    def _get_special_products(self):
+        res = super()._get_special_products()
+        domain = self.env['promotion.program']._load_pos_data_domain({'pos.config': {'data': [{'id': self.id}]}})
+        res |= self.env['promotion.program'].search(domain).item_id.product_id
+        return res
 

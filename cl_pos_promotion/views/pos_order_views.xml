@@ -5,7 +5,7 @@
         <field name="model">pos.order</field>
         <field name="inherit_id" ref="point_of_sale.view_pos_pos_form"/>
         <field name="arch" type="xml">
-            <xpath expr="//field[@name='lines']//tree//field[@name='refunded_qty']" position="after">
+            <xpath expr="//field[@name='lines']//list//field[@name='refunded_qty']" position="after">
                 <field name="promotion_ids" widget="many2many_tags" readonly="1" optional="hide"/>
             </xpath>
         </field>

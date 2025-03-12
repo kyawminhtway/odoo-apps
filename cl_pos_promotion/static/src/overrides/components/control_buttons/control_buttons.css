@@ -1,0 +1,9 @@
+.btn-apply-promotion{
+    background-color: #07ab43;
+    color: white;
+}
+
+.btn-apply-promotion:hover, .btn-apply-promotion:focus, .btn-apply-promotion:active{
+    background-color: #068c37 !important;
+    color: white !important;
+}

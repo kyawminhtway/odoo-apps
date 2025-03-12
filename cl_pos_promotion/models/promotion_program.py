@@ -1,3 +1,4 @@
+from datetime import datetime
 from odoo import api, models, fields
 
 
@@ -19,3 +20,44 @@ class PromotionProgram(models.Model):
     partner_ids = fields.Many2many('res.partner', 'promotion_program_partner_rel', 'program_id', 'partner_id', 'Customers')
     note = fields.Text('Note')
 
+    @api.model
+    def _load_pos_data_domain(self, data):
+        current = fields.Date.context_today(self)
+        return [
+            '|',
+            ('config_ids', '=', False),
+            ('config_ids', 'in', [data['pos.config']['data'][0]['id']]),
+            '|',
+            '|',
+            '|',
+            '&',
+            ('date_from', '=', False),
+            ('date_to', '>=', current),
+            '&',
+            ('date_from', '<=', current),
+            ('date_to', '=', False),
+            '&',
+            ('date_from', '<=', current),
+            ('date_to', '>=', current),
+            '&',
+            ('date_from', '=', False),
+            ('date_to', '=', False)
+        ]
+
+    @api.model
+    def _load_pos_data_fields(self):
+        return [
+            'name', 'active', 'date_from', 'date_to', 'rule_id', 'item_id', 
+            'can_be_merged', 'config_ids', 'partner_ids', 'note',
+        ]
+
+    def _load_pos_data(self, data):
+        domain = self._load_pos_data_domain(data)
+        fields_to_read = self._load_pos_data_fields()
+        records = self.search_read(domain, fields_to_read, load=False)
+        return {
+            'data': records,
+            'fields': fields_to_read,
+            'ids': [record['id'] for record in records]
+        }
+    

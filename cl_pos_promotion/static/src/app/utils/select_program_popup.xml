@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<templates id="template" xml:space="preserve">
+
+    <t t-name="cl_pos_promotion.SelectProgramPopup">
+        <Dialog header="false" footer="false" bodyClass="'d-flex flex-column zero-padding select-program-popup'">
+            <table class="table">
+                <thead>
+                    <tr>
+                        <th t-on-click="selectAll">
+                            <t t-if="state.selectedIds.size === props.items.length">
+                                <input type="checkbox" checked=""/>
+                            </t>
+                            <t t-else="">
+                                <input type="checkbox"/>
+                            </t>
+                        </th>
+                        <th class="text-center"><t t-esc="props.title"/></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr t-foreach="props.items" t-as="item" t-key="item.id" t-on-click="() => this.selectItem(item.id)">
+                        <t t-if="state.selectedIds.has(item.id)">
+                            <td><input type="checkbox" checked=""/></td>
+                        </t>
+                        <t t-else="">
+                            <td><input type="checkbox"/></td>
+                        </t>
+                        <td><t t-esc="item.name"/></td>
+                    </tr>
+                </tbody>
+            </table>
+            <footer class="d-flex justify-content-end mb-3">
+                <button class="btn btn-light" t-on-click="props.close">Cancel</button>
+                <button class="btn btn-light" t-on-click="confirm">Confirm</button>
+            </footer>
+        </Dialog>
+    </t>
+
+</templates>

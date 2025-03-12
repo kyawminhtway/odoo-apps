@@ -15,58 +15,58 @@
                             <field name="type" widget="radio"/>
                             <field name="discount_rule" 
                                    widget="radio" 
-                                   attrs="{'invisible': [('type', 'not in', ['fixed_discount', 'percent_discount'])],
-                                           'required': [('type', 'in', ['fixed_discount', 'percent_discount'])]}"/>
+                                   invisible="type not in ['fixed_discount', 'percent_discount']"
+                                   required="type in ['fixed_discount', 'percent_discount']" />
                             <field name="price_rule"
                                    string="Calculate Discount On" 
-                                   attrs="{'invisible': [('type', '!=', 'percent_discount')],
-                                           'required': [('type', '=', 'percent_discount')]}"/>
+                                   invisible="type != 'percent_discount'"
+                                   required="type == 'percent_discount'" />
                             <field name="discount"
-                                   attrs="{'invisible': [('type', 'not in', ['fixed_discount', 'percent_discount'])],
-                                           'required': [('type', 'in', ['fixed_discount', 'percent_discount'])]}"/>
+                                   invisible="type not in ['fixed_discount', 'percent_discount']"
+                                   required="type in ['fixed_discount', 'percent_discount']" />
                             <field name="product_id"
                                    string="Discount Product" 
-                                   attrs="{'invisible': [('type', 'not in', ['fixed_discount', 'percent_discount'])],
-                                           'required': [('type', 'in', ['fixed_discount', 'percent_discount'])]}"/>
+                                   invisible="type not in ['fixed_discount', 'percent_discount']"
+                                   required="type in ['fixed_discount', 'percent_discount']" />
                             <field name="item_rule" 
-                                   attrs="{'invisible': [('type', 'not in', ['fixed_discount', 'free_product'])],
-                                           'required': [('type', 'in', ['fixed_discount', 'free_product'])]}"/>
+                                   invisible="type not in ['fixed_discount', 'free_product']"
+                                   required="type in ['fixed_discount', 'free_product']" />
                             <field name="max_occurrence" 
-                                   attrs="{'invisible': ['|', ('type', 'not in', ['fixed_discount', 'free_product']), ('item_rule', '!=', 'max_occurrence')],
-                                           'required': [('type', 'in', ['fixed_discount', 'free_product']), ('item_rule', '=', 'max_occurrence')]}"/>
+                                   invisible="type not in ['fixed_discount', 'free_product'] or item_rule != 'max_occurrence'"
+                                   required="type in ['fixed_discount', 'free_product'] and item_rule == 'max_occurrence'" />
                             <field name="max_discount" 
                                    string="Discount Capped at"
-                                   attrs="{'invisible': [('type', 'not in', ['fixed_discount', 'percent_discount'])],
-                                           'required': [('type', 'in', ['fixed_discount', 'percent_discount'])]}"/>
+                                   invisible="type not in ['fixed_discount', 'percent_discount']"
+                                   required="type in ['fixed_discount', 'percent_discount']" />
                         </group>
                     </group>
                     <notebook>
                         <page name="categories" 
                               string="Categories" 
-                              attrs="{'invisible': ['|', ('type', 'not in', ['fixed_discount', 'percent_discount']), ('discount_rule', '!=', 'category')]}">
+                              invisible="type not in ['fixed_discount', 'percent_discount'] or discount_rule != 'category'">
                             <field name="category_ids"/>
                         </page>
                         <page name="products" 
                               string="Products" 
-                              attrs="{'invisible': ['|', ('type', 'not in', ['fixed_discount', 'percent_discount']), ('discount_rule', '!=', 'product')]}">
+                              invisible="type not in ['fixed_discount', 'percent_discount'] or discount_rule != 'product'">
                             <field name="product_ids"/>
                         </page>
                         <page name="free_products" 
                               string="Free Products" 
-                              attrs="{'invisible': [('type', '!=', 'free_product')]}">
+                              invisible="type != 'free_product'">
                             <field name="free_product_ids">
-                                <tree editable="bottom">
+                                <list editable="bottom">
                                     <field name="product_id"/>
                                     <field name="qty"/>
-                                    <field name="item_id" invisible="1"/>
-                                </tree>
+                                    <field name="item_id" invisible="True"/>
+                                </list>
                                 <form>
                                     <sheet>
                                         <group> 
                                             <group>
                                                 <field name="product_id"/>
                                                 <field name="qty"/>
-                                                <field name="item_id" invisible="1"/>
+                                                <field name="item_id" invisible="True"/>
                                             </group>
                                         </group>
                                     </sheet>
@@ -78,10 +78,7 @@
                         </page>
                     </notebook>
                 </sheet>
-                <div class="oe_chatter">
-                    <field name="message_follower_ids"/>
-                    <field name="message_ids"/>
-                </div>
+                <chatter groups="point_of_sale.group_pos_manager"/>
             </form>
         </field>
     </record>
@@ -89,16 +86,16 @@
         <field name="name">promotion.item.tree</field>
         <field name="model">promotion.item</field>
         <field name="arch" type="xml">
-            <tree>
+            <list>
                 <field name="name"/>
                 <field name="type"/>
-            </tree>
+            </list>
         </field>
     </record>
     <record id="action_promotion_item" model="ir.actions.act_window">
         <field name="name">Promotion Item</field>
         <field name="res_model">promotion.item</field>
-        <field name="view_mode">tree,form</field>
+        <field name="view_mode">list,form</field>
         <field name="help" type="html">
             <p class="o_view_nocontent_smiling_face">
                 Create a new promotion item here.
